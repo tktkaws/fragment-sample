@@ -1,11 +1,32 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Teasers from "../components/Teasers.astro";
+import Filters from "../components/Filters.astro";
 ---
 
+<Layout title="top | Swup Demo">
+    <div id="characters-list">
+        <Filters mark-active={true} />
+        <Teasers />
+    </div>
+    <p class="buttons">
+        <a class="button" href="/">← Go back</a>
+    </p>
+    <p class="buttons">
+        <a class="button" href="/items/">View Items  →</a>
+    </p>
+</Layout>
+<!-- 
 <Layout title="top | Swup Demo">
     <h1>Fragment Support<br />With Swup</h1>
     <p>This page will be fully replaced when navigating to the items.</p>
     <p class="buttons">
         <a class="button" href="/items/">View Items  →</a>
     </p>
-</Layout>
+    <p class="buttons">
+        <a class="button" href="/characters/">View Characters</a>
+    </p>
+    <p class="buttons">
+        <a class="button" href="/about/">about  →</a>
+    </p>
+</Layout> -->

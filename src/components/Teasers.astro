@@ -1,0 +1,37 @@
+---
+import { getSortedCharacters } from "../js/backend.js";
+
+const { filter } = Astro.props;
+
+const posts = (await getSortedCharacters())!.filter((post) => {
+	return !filter || post.data.filters.includes(filter.slug);
+});
+---
+
+<section class="teasers">
+	<ul class="teasers_list">
+		{
+			posts.map((post, index) => (
+				<li
+					class="teaser"
+					style={{ transitionDelay: `${index * 40}ms` }}
+				>
+					<a class="teaser_link" href={`/character/${post.slug}/`}>
+						<div
+							class="teaser_batch"
+							style={`background-color: ${post.data.color};`}
+						>
+							<div
+								class="teaser_image"
+								style={{
+									backgroundImage: `url(/characters/${post.data.image})`,
+								}}
+							/>
+						</div>
+						{post.data.name}
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</section>

@@ -1,0 +1,42 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+import { getSortedCharacters } from "../../js/backend.js";
+
+import Filters from "../../components/Filters.astro";
+
+export async function getStaticPaths() {
+  const posts = (await getSortedCharacters())!;
+
+  return posts.map((post, index) => ({
+    params: { slug: post.slug },
+    props: {
+      post,
+      prevPost: posts[index - 1] || posts[posts.length - 1],
+      nextPost: posts[index + 1] || posts[0],
+    },
+  }));
+}
+type Props = {
+  post: CollectionEntry<"characters">;
+  prevPost: CollectionEntry<"characters">;
+  nextPost: CollectionEntry<"characters">;
+};
+
+const { post, prevPost, nextPost } = Astro.props;
+const { Content } = await post.render();
+const { name, color, image } = post.data;
+---
+
+<Layout title="top | Swup Demo">
+  <div
+    class="character_header"
+    style={{
+      backgroundColor: color,
+    }}
+  >
+    <h1>{name}</h1>
+  </div>
+  <img src=`/characters/${image}` alt="" />
+</Layout>

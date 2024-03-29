@@ -1,0 +1,38 @@
+---
+import { getSortedFilters } from '../js/backend.js';
+import { Debug } from 'astro/components';
+
+const filters = await getSortedFilters();
+const allFilters = [
+	{
+		slug: undefined,
+		data: {
+			name: "All",
+		},
+	},
+	...filters,
+];
+
+const { filter: currentFilterSlug } = Astro.params;
+const markActiveFilter = Astro.props["mark-active"] === true;
+---
+
+<nav class="filters">
+	<ul class="filters_list">
+		{
+			allFilters.map((filter) => (
+				<li class="filters_item">
+					<a
+						class:list={[
+							"filters_link button",
+							{ "is-active": markActiveFilter && filter.slug === currentFilterSlug },
+						]}
+						href={filter.slug ? `/characters/${filter.slug}/` : "/characters/"}
+					>
+						{filter.data.name}
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</nav>

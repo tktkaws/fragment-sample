@@ -1,0 +1,31 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Teasers from "../../components/Teasers.astro";
+import Filters from "../../components/Filters.astro";
+import { getSortedFilters, getSortedCharacters } from "../../js/backend.js";
+
+const filters = await getSortedFilters();
+const allFilters = [
+    {
+        slug: undefined,
+        data: {
+            name: "All",
+        },
+    },
+    ...filters,
+];
+const posts = await getSortedCharacters();
+---
+
+<Layout title="top | Swup Demo">
+    <div id="characters-list">
+        <Filters mark-active={true} />
+        <Teasers />
+    </div>
+    <p class="buttons">
+        <a class="button" href="/">← Go back</a>
+    </p>
+    <p class="buttons">
+        <a class="button" href="/items/">View Items  →</a>
+    </p>
+</Layout>

@@ -1,9 +1,5 @@
 console.clear();
-// import Swup from 'https://unpkg.com/swup@4?module';
-// import FragmentPlugin from 'https://www.unpkg.com/@swup/fragment-plugin@1?module';
-
 import Swup from 'swup';
-
 import FragmentPlugin from '@swup/fragment-plugin';
 
 const swup = new Swup({
@@ -16,7 +12,22 @@ const swup = new Swup({
           from: '/items/:filter?',
           to: '/items/:filter?',
           containers: ['#items'],
-        }
+        },
+        {
+          from: "/characters/:filter?",
+          to: "/characters/:filter?",
+          containers: ["#characters-list"],
+        },
+        {
+          from: "/",
+          to: "/characters/:filter?",
+          containers: ["#characters-list"],
+        },
+        {
+          from: "/characters/:filter?",
+          to: "/",
+          containers: ["#characters-list"],
+        },
       ]
     })
   ]
