@@ -10,6 +10,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^4.5.12"
+    "@swup/fragment-plugin": "^1.0.1",
+    "astro": "^4.5.12",
+    "swup": "^4.6.1"
   }
 }
