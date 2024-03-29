@@ -1,0 +1,91 @@
+/* The default transition for non-fragment visits */
+.is-changing .transition-main {
+  transition-property: opacity, transform;
+  transition-duration: 250ms;
+}
+html.is-animating .transition-main {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+html.is-leaving .transition-main {
+  transform: translateY(20px);
+}
+
+/*
+ * The transition when filtering the characters.
+ * Here, we are animating the `.teaeser` elements individually
+ */
+#characters-list.is-changing {
+  --duration-leave: 150ms;
+  --duration-enter: 400ms;
+  transition-duration: var(--duration-enter);
+}
+#characters-list.is-leaving {
+  transition-duration: var(--duration-leave);
+}
+#characters-list.is-changing .teaser {
+  transition-property: opacity, transform;
+  transition-duration: var(--duration-enter);
+  transition-timing-function: cubic-bezier(0.230, 1.000, 0.320, 1.000); /* easeOutQuint */
+}
+#characters-list.is-animating .teaser {
+  opacity: 0;
+  transform: scale(0.75);
+}
+/* Change easing and duration for the leave-phase */
+#characters-list.is-leaving .teaser {
+  transition-timing-function: ease-in;
+  transition-duration: var(--duration-leave);
+}
+
+/*
+* The animation for opening and closing the character modal
+*/
+#character-modal.is-changing {
+  transition: opacity 300ms;
+}
+#character-modal.is-animating {
+  opacity: 0;
+}
+
+/* Zoom-Effect for the character detail when opening/closing the modal */
+#character-modal.is-changing #character-detail {
+  transition: transform 150ms;
+  transform: scale(1);
+}
+#character-modal.to-open-character.is-animating #character-detail,
+#character-modal.to-close-character.is-leaving #character-detail {
+  transform: scale(0.95);
+}
+
+/* Animate the backdrop of the modal */
+#character-modal::backdrop {
+  transition: opacity 300ms;
+}
+#character-modal.is-animating::backdrop,
+.is-animating #character-modal::backdrop {
+  opacity: 0;
+}
+
+/*
+* The animation between charcter details. Directional animation based on data-swup-animation
+*/
+#character-detail.is-changing {
+  transition: opacity 200ms, transform 200ms;
+}
+#character-detail.to-next {
+  --direction: 1;
+}
+#character-detail.to-previous {
+  --direction: -1;
+}
+#character-detail.is-animating {
+  opacity: 0;
+  transform: translateX(calc(40px * var(--direction)));
+}
+#character-detail.is-leaving {
+  transform: translateX(calc(40px * var(--direction) * -1));
+}
+
+
+/* cut */
